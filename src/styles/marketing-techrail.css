@@ -1,0 +1,77 @@
+/* ============================================================
+   UNIVERSE 3D — Tech Rail (dark stripe)
+   Infinite horizontal scroll · fade edges · pill items
+   ============================================================ */
+
+.tech-rail {
+  padding: 4.5rem 0;
+  background: var(--gray-900);
+  overflow: hidden;
+  position: relative;
+}
+.tech-rail .section-container {
+  margin-bottom: 2.2rem;
+}
+
+/* Center the header */
+.tech-rail-header {
+  text-align: center;
+}
+.tech-rail-header .section-eyebrow {
+  background: rgba(37,99,235,0.12);
+  color: var(--blue-400);
+}
+.tech-rail-header h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.7rem, 3.4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+/* fade edges */
+.tech-rail::before,
+.tech-rail::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 160px;
+  z-index: 5;
+  pointer-events: none;
+}
+.tech-rail::before { left: 0;  background: linear-gradient(90deg,  var(--gray-900), transparent); }
+.tech-rail::after  { right: 0; background: linear-gradient(270deg, var(--gray-900), transparent); }
+
+.tech-rail-track {
+  display: flex;
+  gap: 1rem;
+  animation: techScroll linear infinite 180s; 
+  width: fit-content;
+}
+@keyframes techScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.tech-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.3rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: border-color 0.1s, background 0.1s;
+}
+.tech-item:hover {
+  border-color: rgba(37,99,235,0.4);
+  background: rgba(37,99,235,0.08);
+}
+.tech-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray-300);
+}

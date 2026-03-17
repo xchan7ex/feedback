@@ -1,0 +1,752 @@
+/* ============================================================
+   UNIVERSE 3D — Loading Screen (v2)
+   Sky-blue scene · particles · rays · character · progress
+   Nickname form · welcome header · responsive
+   ============================================================ */
+
+.loading-screen-v2 {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* ─── Background ─── */
+.ls-background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    #7EC8E3 0%, 
+    #58A4D4 30%, 
+    #4A9FD4 50%,
+    #5BA8DC 70%,
+    #7BBDE8 100%
+  );
+}
+
+.ls-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.4) 0%, transparent 60%);
+}
+
+/* Light Rays */
+.ls-rays {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 60%;
+  overflow: hidden;
+  opacity: 0.6;
+}
+
+.ls-ray {
+  position: absolute;
+  top: -50%;
+  width: 2px;
+  height: 150%;
+  background: linear-gradient(180deg, 
+    rgba(255,255,255,0.8) 0%, 
+    rgba(255,255,255,0.3) 50%,
+    transparent 100%
+  );
+  transform-origin: top center;
+  animation: rayShimmer 8s ease-in-out infinite;
+}
+
+.ls-ray-1 { left: 35%; transform: rotate(-15deg); animation-delay: 0s; }
+.ls-ray-2 { left: 50%; transform: rotate(0deg); animation-delay: 2s; width: 3px; }
+.ls-ray-3 { left: 65%; transform: rotate(15deg); animation-delay: 4s; }
+
+@keyframes rayShimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+
+/* Clouds */
+.ls-clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ls-cloud {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* each cloud scrolls right-to-left at its own speed & vertical position */
+.ls-cloud-1 { top: 12%; animation: cloudDrift 28s linear infinite; }
+.ls-cloud-2 { top: 22%; animation: cloudDrift 38s linear infinite; animation-delay: -12s; }
+.ls-cloud-3 { top: 8%;  animation: cloudDrift 22s linear infinite; animation-delay: -6s; }
+.ls-cloud-4 { top: 30%; animation: cloudDrift 34s linear infinite; animation-delay: -18s; }
+.ls-cloud-5 { top: 18%; animation: cloudDrift 42s linear infinite; animation-delay: -28s; }
+
+/* start each cloud off-screen to the right and loop to off-screen left */
+@keyframes cloudDrift {
+  0%   { left: 110%; }
+  100% { left: -35%; }
+}
+
+/* individual puffs that make up one cloud shape */
+.ls-cloud-puff {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
+}
+
+.ls-cloud-puff-1 { width: 70px;  height: 45px; position: relative; z-index: 1; }
+.ls-cloud-puff-2 { width: 95px;  height: 58px; margin-left: -30px; margin-top: -18px; z-index: 2; position: relative; }
+.ls-cloud-puff-3 { width: 65px;  height: 42px; margin-left: -24px; margin-top: -14px; z-index: 1; position: relative; }
+.ls-cloud-puff-4 { width: 50px;  height: 35px; margin-left: -18px; margin-top: -10px; z-index: 0; position: relative; }
+
+/* clouds 2 & 4 are the bigger ones — scale them up slightly */
+.ls-cloud-2 .ls-cloud-puff-1 { width: 80px;  height: 50px; }
+.ls-cloud-2 .ls-cloud-puff-2 { width: 110px; height: 65px; }
+.ls-cloud-2 .ls-cloud-puff-3 { width: 75px;  height: 48px; }
+.ls-cloud-2 .ls-cloud-puff-4 { width: 58px;  height: 38px; }
+
+.ls-cloud-4 .ls-cloud-puff-1 { width: 75px;  height: 48px; }
+.ls-cloud-4 .ls-cloud-puff-2 { width: 105px; height: 62px; }
+.ls-cloud-4 .ls-cloud-puff-3 { width: 70px;  height: 45px; }
+.ls-cloud-4 .ls-cloud-puff-4 { width: 55px;  height: 36px; }
+
+/* cloud 3 & 5 are the smaller, thinner distant ones */
+.ls-cloud-3 .ls-cloud-puff-1 { width: 55px;  height: 32px; background: rgba(255,255,255,0.3); }
+.ls-cloud-3 .ls-cloud-puff-2 { width: 75px;  height: 42px; background: rgba(255,255,255,0.3); }
+.ls-cloud-3 .ls-cloud-puff-3 { width: 52px;  height: 30px; background: rgba(255,255,255,0.3); }
+
+.ls-cloud-5 .ls-cloud-puff-1 { width: 50px;  height: 30px; background: rgba(255,255,255,0.28); }
+.ls-cloud-5 .ls-cloud-puff-2 { width: 72px;  height: 40px; background: rgba(255,255,255,0.28); }
+.ls-cloud-5 .ls-cloud-puff-3 { width: 48px;  height: 28px; background: rgba(255,255,255,0.28); }
+
+
+/* Floating Particles */
+.ls-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ls-particle {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 255, 255, var(--opacity));
+  border-radius: 50%;
+  left: var(--x);
+  top: var(--y);
+  animation: particleFloat var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes particleFloat {
+  0%, 100% { 
+    transform: translateY(0) scale(1); 
+    opacity: var(--opacity);
+  }
+  50% { 
+    transform: translateY(-30px) scale(1.2); 
+    opacity: calc(var(--opacity) * 1.5);
+  }
+}
+
+/* Background Buildings */
+.ls-buildings {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5%;
+  padding: 0 10%;
+  opacity: 0.15;
+}
+
+.ls-building {
+  background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+  border-radius: 8px 8px 0 0;
+}
+
+.ls-building-1 { width: 80px; height: 40%; margin-left: 5%; }
+.ls-building-2 { width: 120px; height: 55%; }
+.ls-building-3 { width: 100px; height: 45%; }
+.ls-building-4 { width: 70px; height: 35%; margin-right: 5%; }
+
+/* Trees */
+.ls-trees {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  pointer-events: none;
+}
+
+.ls-tree {
+  position: absolute;
+  bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ls-tree-top {
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(180deg, #6BC5A0 0%, #4AA882 100%);
+  border-radius: 50% 50% 45% 45%;
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1);
+}
+
+.ls-tree-trunk {
+  width: 12px;
+  height: 25px;
+  background: linear-gradient(90deg, #5A8FBF 0%, #4A7FAF 100%);
+  border-radius: 0 0 4px 4px;
+  margin-top: -5px;
+}
+
+.ls-tree-1 { left: 5%; transform: scale(0.7); opacity: 0.5; }
+.ls-tree-2 { left: 12%; transform: scale(0.9); opacity: 0.7; }
+.ls-tree-3 { right: 12%; transform: scale(0.85); opacity: 0.65; }
+.ls-tree-4 { right: 5%; transform: scale(0.75); opacity: 0.55; }
+
+/* ─── Main Content ─── */
+.ls-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Character */
+.ls-character {
+  position: relative;
+  width: 120px;
+  height: 200px;
+  transition: transform 0.1s ease-out;
+  margin-bottom: 1rem;
+}
+
+.ls-character-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 15px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: shadowPulse 2s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.3; }
+  50% { transform: translateX(-50%) scale(0.85); opacity: 0.2; }
+}
+
+.ls-character-body {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.15));
+}
+
+.ls-character-body svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Welcome Header */
+.ls-welcome-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ls-welcome-title {
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(4rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.ls-universe-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100px;
+}
+
+.ls-badge-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ls-badge-3d {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #008cff 0%, #6877ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Title */
+.ls-title {
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Progress Bar */
+.ls-progress-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 0 1rem;
+}
+
+.ls-progress-track {
+  position: relative;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 2px 4px rgba(0,0,0,0.1),
+    0 1px 0 rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.ls-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.7) 0%, 
+    rgba(255,255,255,0.9) 50%,
+    rgba(255,255,255,0.7) 100%
+  );
+  border-radius: 100px;
+  position: relative;
+  transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 20px rgba(255,255,255,0.5);
+}
+
+.ls-progress-glow {
+  position: absolute;
+  right: -2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0.8;
+  animation: progressGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+  0%, 100% { opacity: 0.6; transform: translateY(-50%) scale(1); }
+  50% { opacity: 1; transform: translateY(-50%) scale(1.3); }
+}
+
+.ls-progress-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+  border-radius: 100px 100px 0 0;
+}
+
+/* Status Text */
+.ls-status {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+  text-shadow: 0 1px 10px rgba(0,0,0,0.1);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+/* Tips */
+.ls-tip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 100px;
+  max-width: 90%;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ls-tip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ls-tip-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.ls-tip-text {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
+/* ─── Nickname Screen ─── */
+.ls-nickname-screen {
+  animation: fadeSlideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ls-character-small {
+  width: 80px;
+  height: 133px;
+  margin-bottom: 0.5rem;
+}
+
+.ls-nickname-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5 rem;
+  width: 100%;
+  max-width: 500px;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.ls-nickname-title {
+  font-family: 'Sora', 'Inter', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.ls-nickname-subtitle {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 12.5px;
+  text-align: center;
+}
+
+.ls-input-group {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.ls-nickname-input {
+  flex: 1;
+  padding: 0.9rem 1.2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e3a5f;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ls-nickname-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.ls-nickname-input:focus {
+  border-color: #fff;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.ls-nickname-input.error {
+  border-color: #ff6b6b;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.ls-random-btn {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.ls-random-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: rotate(180deg);
+}
+
+.ls-random-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ls-error-message {
+  color: #ffcccb;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 100, 100, 0.2);
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.ls-continue-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e3a5f;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  margin-top: 0.5rem;
+}
+
+.ls-continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.ls-continue-btn:active {
+  transform: translateY(0);
+}
+
+.ls-continue-btn svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.ls-continue-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ─── Footer ─── */
+.ls-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ls-footer p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.ls-footer span {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ─── Watermark ─── */
+.ls-watermark {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+}
+
+.ls-watermark .highlight {
+  color: rgba(255, 215, 0, 0.7);
+}
+
+/* ─── Corner Decorations ─── */
+.ls-corner-decor {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.4);
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+.ls-corner-br {
+  bottom: 2rem;
+  right: 2rem;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.7; transform: scale(1.2) rotate(15deg); }
+}
+
+/* ─── Legacy Loading Screen (kept for reference) ─── */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a1a2e 50%, #0f172a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .ls-content {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+
+  .ls-welcome-title {
+    font-size: 1.8rem;
+  }
+
+  .ls-character {
+    width: 90px;
+    height: 150px;
+  }
+
+  .ls-character-small {
+    width: 70px;
+    height: 117px;
+  }
+
+  .ls-title {
+    font-size: 1.1rem;
+  }
+
+  .ls-progress-track {
+    height: 10px;
+  }
+
+  .ls-tip {
+    padding: 0.6rem 1rem;
+  }
+
+  .ls-tip-text {
+    font-size: 0.8rem;
+  }
+
+  .ls-tree-1, .ls-tree-4 { display: none; }
+
+  .ls-nickname-form {
+    padding: 1.2rem;
+  }
+
+  .ls-nickname-title {
+    font-size: 1.1rem;
+  }
+
+  .ls-nickname-input {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .ls-random-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .ls-watermark {
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.8rem;
+  }
+}

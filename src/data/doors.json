@@ -1,0 +1,356 @@
+{
+    "gp-square": [
+        {
+            "id": "Disciplinary Safety Coordinator",
+            "name": "Disciplinary Safety Coordinator",
+            "position": {
+                "x": 1.432,
+                "y": 4.55,
+                "z": -2.99
+            },
+            "rotation": {
+                "y": 270
+            }
+        },
+        {
+            "id": "1LA",
+            "name": "1LA",
+            "position": {
+                "x": -7.81,
+                "y": 8.6,
+                "z": -6.77
+            },
+            "rotation": {
+                "y": 70
+            }
+        },
+        {
+            "id": "SRU",
+            "name": "SRU",
+            "position": {
+                "x": -4.27,
+                "y": 8.5,
+                "z": -9.202
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "Manager Centre Operations",
+            "name": "MCO",
+            "position": {
+                "x": -2.62,
+                "y": 8.5,
+                "z": -6.275
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "1LB",
+            "name": "1LB",
+            "position": {
+                "x": 0.83,
+                "y": 8.5,
+                "z": -6.253
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "1LC",
+            "name": "1LC",
+            "position": {
+                "x": 7.01,
+                "y": 8.5,
+                "z": -6.267
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "1LD",
+            "name": "1LD",
+            "position": {
+                "x": 12.48,
+                "y": 8.5,
+                "z": -6.29
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "1LE",
+            "name": "1LE",
+            "position": {
+                "x": 11.39,
+                "y": 8.5,
+                "z": -4.29
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "1LF",
+            "name": "1LF",
+            "position": {
+                "x": 7.32,
+                "y": 8.5,
+                "z": -4.29
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "HR Department",
+            "name": "HR Department",
+            "position": {
+                "x": -9.28,
+                "y": 8.5,
+                "z": 0.525
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "2LA",
+            "name": "2LA",
+            "position": {
+                "x": -7.45,
+                "y": 11.82,
+                "z": -6.252
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "IT Department",
+            "name": "IT Department",
+            "position": {
+                "x": -2.82,
+                "y": 11.82,
+                "z": -6.279
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "2LB",
+            "name": "2LB",
+            "position": {
+                "x": 1.94,
+                "y": 11.82,
+                "z": -6.279
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "2LC",
+            "name": "2LC",
+            "position": {
+                "x": 7.35,
+                "y": 11.82,
+                "z": -6.279
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "2LD",
+            "name": "2LD",
+            "position": {
+                "x": 11.35,
+                "y": 11.82,
+                "z": -6.279
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "2LE",
+            "name": "2LE",
+            "position": {
+                "x": 11.38,
+                "y": 11.82,
+                "z": -4.31
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "2LF",
+            "name": "2LF",
+            "position": {
+                "x": 7.38,
+                "y": 11.82,
+                "z": -4.31
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "3LA",
+            "name": "3LA",
+            "position": {
+                "x": 5.944,
+                "y": 15.25,
+                "z": -2.15
+            },
+            "rotation": {
+                "y": 270
+            }
+        },
+        {
+            "id": "3LB",
+            "name": "3LB",
+            "position": {
+                "x": 5.28,
+                "y": 15.25,
+                "z": -9.79
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "4LA",
+            "name": "4LA",
+            "position": {
+                "x": 6.026,
+                "y": 19.35,
+                "z": -2.08
+            },
+            "rotation": {
+                "y": 270
+            }
+        },
+        {
+            "id": "4LC Academic Coordinators",
+            "name": "4LC | Academic Coordinators",
+            "position": {
+                "x": -7.75,
+                "y": 19.35,
+                "z": -6.31
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "Administrative Department",
+            "name": "Administrative Department",
+            "position": {
+                "x": -8.4,
+                "y": 19.1,
+                "z": 0.556
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "Administrative Department",
+            "name": "Administrative Department",
+            "position": {
+                "x": -8.4,
+                "y": 19.1,
+                "z": 0.556
+            },
+            "rotation": {
+                "y": 180
+            }
+        },
+        {
+            "id": "5LA",
+            "name": "5LA",
+            "position": {
+                "x": 6.105,
+                "y": 23.50,
+                "z": -2.05
+            },
+            "rotation": {
+                "y": 270
+            }
+        },
+        {
+            "id": "Auditorium",
+            "name": "Auditorium",
+            "position": {
+                "x": -4.6,
+                "y": 31.25,
+                "z": -5.909
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "Medical Room",
+            "name": "Medical Room",
+            "position": {
+                "x": -9.51,
+                "y": 31.25,
+                "z": -0.75
+            },
+            "rotation": {
+                "y": 180
+            }
+        }
+    ],
+    "spencer": [
+        {
+            "id": "1LF",
+            "name": "1LF",
+            "position": {
+                "x": 7.32,
+                "y": 8.5,
+                "z": -4.32
+            },
+            "rotation": {
+                "y": 0
+            }
+        },
+        {
+            "id": "sp-tutorial1",
+            "name": "Tutorial Room 1",
+            "position": {
+                "x": -5,
+                "y": 2.2,
+                "z": 10
+            },
+            "rotation": {
+                "y": 0
+            }
+        }
+    ],
+    "ramakrishna": [
+        {
+            "id": "rk-reception",
+            "name": "Reception",
+            "position": {
+                "x": 0,
+                "y": 2.2,
+                "z": 3
+            },
+            "rotation": {
+                "y": 0
+            }
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+/* ============================================================
+   UNIVERSE 3D — Footer CTA (dark gradient band)
+   ============================================================ */
+
+.footer-cta {
+  padding: 5.5rem 1.5rem;
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e1b4b 100%);
+  position: relative;
+  overflow: hidden;
+}
+/* decorative blurred orb */
+.footer-cta::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(75, 124, 230, 0.25) 0%, transparent 70%);
+  top: -150px;
+  right: -100px;
+  pointer-events: none;
+}
+
+.footer-cta-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.footer-cta-text h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.footer-cta-text p { color: rgba(255,255,255,0.5); font-size: 0.94rem; }
+.footer-cta-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.footer-cta-buttons .btn-secondary { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.2); box-shadow: none; }
+.footer-cta-buttons .btn-secondary:hover { background: rgba(255,255,255,0.14); color: var(--white); border-color: rgba(255,255,255,0.45); }
+
+@media (max-width: 600px) {
+  .footer-cta-inner { flex-direction: column; text-align: center; }
+  .footer-cta-buttons { justify-content: center; }
+}

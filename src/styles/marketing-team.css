@@ -1,0 +1,126 @@
+/* ============================================================
+   UNIVERSE 3D — Team Section
+   3D flip cards · front/back faces · LinkedIn button
+   ============================================================ */
+
+.team-section {
+  padding: 7.5rem 1.5rem;
+  background: var(--gray-50);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.3rem;
+}
+
+@media (max-width: 900px) {
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 550px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
+
+/* 3D flip card */
+.team-card {
+  perspective: 1000px;
+  height: 320px;
+}
+.team-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
+  transform-style: preserve-3d;
+}
+.team-card:hover .team-card-inner { transform: rotateY(180deg); }
+
+.team-card-front,
+.team-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.35s var(--ease);
+}
+.team-card:hover .team-card-front,
+.team-card:hover .team-card-back {
+  box-shadow: var(--shadow-md);
+}
+
+.team-card-front { display: flex; flex-direction: column; }
+
+.team-image { width: 100%; height: 240px; overflow: hidden; }
+.team-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease), filter 0.5s var(--ease);
+  filter: saturate(0.85) brightness(0.95);
+}
+.team-card:hover .team-image img {
+  transform: scale(1.07);
+  filter: saturate(1) brightness(1);
+}
+
+.team-info {
+  padding: 1rem 1.2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.team-info h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.1rem;
+}
+.team-role {
+  font-size: 0.74rem;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+/* back face */
+.team-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(135deg, #1e3a5f, #1e1b4b);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: transparent;
+}
+.linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s var(--ease), box-shadow 0.3s;
+}
+.linkedin-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.45);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.linkedin-btn svg { width: 18px; height: 18px; }
+
+@media (max-width: 600px) {
+  .team-card { height: 300px; }
+  .team-image { height: 220px; }
+}

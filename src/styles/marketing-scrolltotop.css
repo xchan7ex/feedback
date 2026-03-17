@@ -1,0 +1,52 @@
+/* ============================================================
+   UNIVERSE 3D — Scroll-To-Top Button
+   ============================================================ */
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.2rem;
+  background: var(--accent-lg);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.4s var(--ease),
+              visibility 0.4s var(--ease),
+              transform 0.4s var(--ease),
+              box-shadow 0.3s var(--ease);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  box-shadow: 0 12px 36px rgba(37, 99, 235, 0.45);
+  transform: translateY(-2px);
+}
+
+.scroll-to-top svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+}
+
+@media (max-width: 600px) {
+  .scroll-to-top span { display: none; }
+  .scroll-to-top { padding: 0.75rem; }
+}

@@ -1,0 +1,91 @@
+/* ============================================================
+   UNIVERSE 3D — Features Section
+   Card grid · animated top-edge bars · icon wraps
+   ============================================================ */
+
+.features {
+  padding: 7.5rem 1.5rem;
+  background: var(--gray-50);
+  position: relative;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.3rem;
+}
+
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  transition: border-color 0.4s var(--ease),
+              transform 0.4s var(--ease),
+              box-shadow 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+/* animated top-edge colour bar */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-lg);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+.feature-card:hover::after { transform: scaleX(1); }
+
+.feature-card:hover {
+  border-color: var(--blue-200);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius);
+  background: var(--blue-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.3rem;
+  transition: background 0.3s, transform 0.3s var(--ease);
+}
+.feature-card:hover .feature-icon-wrap {
+  background: var(--blue-100);
+  transform: scale(1.08);
+}
+.feature-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+  color: var(--blue-700);
+  stroke: var(--blue-700);
+}
+
+.feature-card h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 0.45rem;
+  letter-spacing: -0.01em;
+}
+.feature-card p {
+  font-size: 0.88rem;
+  color: var(--gray-500);
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .features-grid { grid-template-columns: 1fr; }
+}
