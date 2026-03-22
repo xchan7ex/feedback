@@ -19,6 +19,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('API running');
+});
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
     .then(() => console.log('Connected to MongoDB Atlas'))
