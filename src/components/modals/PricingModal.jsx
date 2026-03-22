@@ -21,20 +21,15 @@ function PricingModal({ closeModal, planName, planPrice }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    try {
-      // Use localhost or railway backend based on environment, falling back to localhost for local testing
-      const backendUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:5000' 
-        : 'http://zestful-tenderness-production.up.railway.app';
         
-      const response = await fetch(`${backendUrl}/api/pricing`, {
+    try {
+      const response = await fetch('https://zestful-tenderness-production.up.railway.app/api/pricing', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          plan: planName, // Send the pricing plan name
+          plan: planName,
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
