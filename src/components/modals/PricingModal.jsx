@@ -26,7 +26,7 @@ function PricingModal({ closeModal, planName, planPrice }) {
       // Use localhost or railway backend based on environment, falling back to localhost for local testing
       const backendUrl = window.location.hostname === 'localhost' 
         ? 'http://localhost:5000' 
-        : 'zestful-tenderness-production.up.railway.app';
+        : 'http://zestful-tenderness-production.up.railway.app';
         
       const response = await fetch(`${backendUrl}/api/pricing`, {
         method: 'POST',
