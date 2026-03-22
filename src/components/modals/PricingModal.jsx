@@ -23,7 +23,7 @@ function PricingModal({ closeModal, planName, planPrice }) {
     setIsSubmitting(true)
         
     try {
-      const response = await fetch('https://zestful-tenderness-production.up.railway.app/api/pricing', {
+      const response = await fetch('https://feedback-production-6600.up.railway.app/api/pricing', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
