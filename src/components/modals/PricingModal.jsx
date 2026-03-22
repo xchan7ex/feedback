@@ -16,12 +16,45 @@ function PricingModal({ closeModal, planName, planPrice }) {
     return () => document.removeEventListener('keydown', onKey)
   }, [closeModal])
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(`📋 Pricing Inquiry - ${planName} (${planPrice}):`, formData)
-    setSubmitStatus('success')
-    setFormData({ name: '', email: '', phone: '', company: '', message: '' })
-    setTimeout(() => setSubmitStatus(''), 3000)
+    setIsSubmitting(true)
+    
+    try {
+      // Use localhost or railway backend based on environment, falling back to localhost for local testing
+      const backendUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:5000' 
+        : 'https://feedback-production-6600.up.railway.app';
+        
+      const response = await fetch(`${backendUrl}/api/pricing`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          plan: planName, // Send the pricing plan name
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: formData.message
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', phone: '', company: '', message: '' })
+        setTimeout(() => setSubmitStatus(''), 3000)
+      } else {
+        console.error('Failed to submit pricing inquiry');
+      }
+    } catch (error) {
+      console.error('Error submitting pricing inquiry:', error);
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -86,9 +119,10 @@ function PricingModal({ closeModal, planName, planPrice }) {
           <button
             type="submit"
             className="modal-submit"
+            disabled={isSubmitting}
             style={submitStatus === 'success' ? { background: 'linear-gradient(135deg, #10b981, #059669)' } : {}}
           >
-            {submitStatus === 'success' ? '✓ Inquiry Sent!' : 'Request Quote'}
+            {isSubmitting ? 'Sending...' : submitStatus === 'success' ? '✓ Inquiry Sent!' : 'Request Quote'}
           </button>
         </form>
       </div>
