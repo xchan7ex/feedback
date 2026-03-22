@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import Feedback from './models/Feedback.js';
+import PricingEntry from './models/PricingEntry.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -60,12 +61,43 @@ app.post('/api/feedback', async (req, res) => {
     }
 });
 
-app.use(express.static(path.join(__dirname, '../dist')));
+// POST /api/pricing - Save pricing inquiry
+app.post('/api/pricing', async (req, res) => {
+    try {
+        const { plan, name, email, phone, company, message } = req.body;
 
-app.get(/.*/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist', 'index.html'));
+        if (!plan || !name || !email || !phone) {
+            return res.status(400).json({ message: 'Plan, name, email, and phone are required.' });
+        }
+
+        const newPricingEntry = new PricingEntry({
+            plan,
+            name,
+            email,
+            phone,
+            company,
+            message,
+            timestamp: new Date()
+        });
+
+        const savedEntry = await newPricingEntry.save();
+
+        res.status(201).json({
+            message: 'Pricing inquiry saved successfully',
+            entry: savedEntry
+        });
+
+    } catch (error) {
+        console.error('Error saving pricing inquiry:', error);
+        res.status(500).json({
+            message: 'Internal server error while saving pricing inquiry.',
+            error: error.message,
+            stack: error.stack
+        });
+    }
 });
 
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
