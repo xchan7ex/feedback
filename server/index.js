@@ -24,12 +24,6 @@ mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((err) => console.error('Error connecting to MongoDB:', err));
 
-// Routes
-// GET / - Health check
-app.get('/', (req, res) => {
-    res.send('Universe3D Backend API is running!');
-});
-
 // POST /api/feedback - Save new feedback
 app.post('/api/feedback', async (req, res) => {
     try {
