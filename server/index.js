@@ -24,6 +24,7 @@ mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
     .then(() => console.log('Connected to MongoDB Atlas'))
     .catch((err) => console.error('Error connecting to MongoDB:', err));
 
+
 // POST /api/feedback - Save new feedback
 app.post('/api/feedback', async (req, res) => {
     try {
