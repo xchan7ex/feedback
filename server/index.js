@@ -26,6 +26,11 @@ mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
     .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 
+// Basic route to check if server is running
+app.get('/', (req, res) => {
+    res.send('Universe3D API is running...');
+});
+
 // POST /api/feedback - Save new feedback
 app.post('/api/feedback', async (req, res) => {
     try {
