@@ -10,12 +10,29 @@ function ContactModal({ closeModal }) {
     return () => document.removeEventListener('keydown', onKey)
   }, [closeModal])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('📧 Contact Form Submitted:', formData)
-    setSubmitStatus('success')
-    setFormData({ name: '', email: '', phone: '', interest: '', message: '' })
-    setTimeout(() => setSubmitStatus(''), 3000)
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log('📧 Contact Form Submitted successfully')
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', phone: '', interest: '', message: '' })
+        setTimeout(() => setSubmitStatus(''), 3000)
+      } else {
+        console.error('Failed to submit contact form');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   }
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
