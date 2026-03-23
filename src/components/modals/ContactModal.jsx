@@ -14,7 +14,7 @@ function ContactModal({ closeModal }) {
     e.preventDefault()
     
     try {
-      const response = await fetch('http://impartial-nurturing-production.up.railway.app/api/contact', {
+      const response = await fetch('https://feedback-production-6600.up.railway.app/api/pricing', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
