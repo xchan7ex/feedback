@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import Feedback from './models/Feedback.js';
 import PricingEntry from './models/PricingEntry.js';
+import Contact from './models/Contact.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -18,10 +19,6 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('API running');
-});
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })
@@ -95,6 +92,41 @@ app.post('/api/pricing', async (req, res) => {
         console.error('Error saving pricing inquiry:', error);
         res.status(500).json({
             message: 'Internal server error while saving pricing inquiry.',
+            error: error.message,
+            stack: error.stack
+        });
+    }
+});
+
+// POST /api/contact - Save contact inquiry
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, phone, interest, message } = req.body;
+
+        if (!name || !email || !interest) {
+            return res.status(400).json({ message: 'Name, email, and interest are required.' });
+        }
+
+        const newContact = new Contact({
+            name,
+            email,
+            phone,
+            interest,
+            message,
+            timestamp: new Date()
+        });
+
+        const savedContact = await newContact.save();
+
+        res.status(201).json({
+            message: 'Contact message saved successfully',
+            contact: savedContact
+        });
+
+    } catch (error) {
+        console.error('Error saving contact message:', error);
+        res.status(500).json({
+            message: 'Internal server error while saving contact message.',
             error: error.message,
             stack: error.stack
         });
