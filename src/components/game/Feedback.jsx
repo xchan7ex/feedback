@@ -4,36 +4,41 @@ import '../../styles/game-ui.css';
 const Feedback = ({ onComplete, onClose, playerNickname }) => {
     const [rating, setRating] = useState(0);
     const [hoverRating, setHoverRating] = useState(0);
-    const [review, setReview] = useState('');
+    const [comment, setComment] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
         try {
+            const finalReview = comment.trim() === '' ? 'No review added' : comment;
             const response = await fetch('https://feedback-production-6600.up.railway.app/api/feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ rating, review, nickname: playerNickname || 'Explorer' }),
+                body: JSON.stringify({ rating, review: finalReview, nickname: playerNickname}),
             });
 
             if (response.ok) {
+                console.log('Feedback sent successfully');
                 setSubmitted(true);
-                setTimeout(() => {
-                    onComplete();
-                }, 1500);
             } else {
                 console.error('Failed to submit feedback');
+                setSubmitted(true);
             }
         } catch (error) {
             console.error('Error submitting feedback:', error);
+            setSubmitted(true);
         } finally {
             setIsSubmitting(false);
         }
+    };
+
+    const handleSkip = () => {
+        if (onComplete) onComplete();
+        else if (onClose) onClose();
     };
 
     if (submitted) {
@@ -48,6 +53,16 @@ const Feedback = ({ onComplete, onClose, playerNickname }) => {
                     </div>
                     <h2>Feedback Submitted!</h2>
                     <p>Thank you for helping us improve.</p>
+                    <button 
+                        className="submit-btn" 
+                        style={{marginTop: '1.5rem', width: '100%'}} 
+                        onClick={() => {
+                            if (onComplete) onComplete();
+                            else if (onClose) onClose();
+                        }}
+                    >
+                        Back to Webpage
+                    </button>
                 </div>
             </div>
         );
@@ -88,19 +103,26 @@ const Feedback = ({ onComplete, onClose, playerNickname }) => {
                     <textarea
                         className="feedback-textarea"
                         placeholder="Tell us what you think..."
-                        value={review}
-                        onChange={(e) => setReview(e.target.value)}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
                         rows={4}
-                        required
                     />
 
-                    <div className="feedback-actions">
+                    <div className="button-group">
                         <button
                             type="submit"
-                            className="feedback-submit-btn"
+                            className="submit-btn"
                             disabled={rating === 0 || isSubmitting}
                         >
                             {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+                        </button>
+                        <button
+                            type="button"
+                            className="skip-btn"
+                            onClick={handleSkip}
+                            disabled={isSubmitting}
+                        >
+                            Skip
                         </button>
                     </div>
                 </form>
