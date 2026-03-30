@@ -13,12 +13,13 @@ const Feedback = ({ onComplete, onClose, playerNickname }) => {
         setIsSubmitting(true);
         try {
             const finalReview = comment.trim() === '' ? 'No review added' : comment;
+            const finalNickname = playerNickname || 'Explorer';
             const response = await fetch('https://feedback-production-6600.up.railway.app/api/feedback', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ rating, review: finalReview, nickname: playerNickname}),
+                body: JSON.stringify({ rating, review: finalReview, nickname: finalNickname}),
             });
 
             if (response.ok) {
